@@ -47,3 +47,11 @@ def get_data(url):
     dfl.loc[:, ct.DATES] = dfl.loc[:, ct.DATES].apply(lambda x : datetime.datetime.strptime(x, "%m/%d/%y"))
 
     return dfl
+
+def make_options(data_death):
+    options = [{"label": "France", "value": "France"}]
+    if data_death is None:
+        return options
+    countries = pd.read_json(data_death, orient='split').loc[:, ct.COUNTRY]
+    options = [{"label": c, "value": c} for c in countries.drop_duplicates()]
+    return options

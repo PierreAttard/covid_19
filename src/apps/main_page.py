@@ -1,6 +1,7 @@
 import pandas as pd
 from src.apps.layout_maker import main_layout as lyt
 from src.apps.graph_maker import main_graph
+from src.apps.data_managment import load_data
 from src.app import app
 import src.constantes as ct
 from dash.dependencies import Input, Output, State
@@ -11,12 +12,13 @@ layout = lyt.main_lyt()
     Output("choice-main-country", "options"),
     [Input(ct.ID_DF_CCASES, "children")])
 def fill_options(data_death):
-    options = [{"label": "France", "value" : "France"}]
-    if data_death is None:
-        return options
-    countries = pd.read_json(data_death, orient='split').loc[:, ct.COUNTRY]
-    options = [{"label" : c, "value": c} for c in countries.drop_duplicates()]
-    return options
+    return load_data.make_options(data_death)
+
+@app.callback(
+    Output("choice-comparison-country", "options"),
+    [Input(ct.ID_DF_CCASES, "children")])
+def fill_options(data_death):
+    return load_data.make_options(data_death)
 
 
 @app.callback(

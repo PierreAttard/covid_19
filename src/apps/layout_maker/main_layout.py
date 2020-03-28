@@ -30,7 +30,10 @@ def main_lyt():
     lay = html.Div([
         html.H1('Analyse COVID-19'),
         dcc.Tabs(id="tabs-main", value='tab-1-example', children=[
-            dcc.Tab(label='Tab One', children=lyt_grp.choice_data(), style=tab_style, selected_style=tab_selected_style),
+            dcc.Tab(label='Tab One',
+                    children=[lyt_grp.choice_data(),lyt_grp.comparaison_data()],
+                    style=tab_style,
+                    selected_style=tab_selected_style),
             dcc.Tab(label='Tab Two', children='tab-2-example', style=tab_style, selected_style=tab_selected_style),
         ]),
         html.Div(id='tabs-content-example'),
