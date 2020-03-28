@@ -1,5 +1,6 @@
 import src.constantes as ct
 import plotly.graph_objects as go
+import dash_core_components as dcc
 
 def make_graphe(df, country, data_type):
     """
@@ -11,7 +12,7 @@ def make_graphe(df, country, data_type):
     if df is None or country is None:
         return go.Figure()
 
-    df = df.groupby([ct.COUNTRY, ct.DATES]).sum()
+    df = df.groupby([ct.COUNTRY, ct.DATES]).sum().reset_index()
     df = df.loc[df.loc[:, ct.COUNTRY] == country, :]
     df = df.reset_index()
 
@@ -28,4 +29,4 @@ def make_graphe(df, country, data_type):
     )
     fig.add_trace(g1)
 
-    return g1
+    return dcc.Graph(figure=fig)
