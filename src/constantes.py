@@ -11,8 +11,8 @@ VAL = "value"
 
 # URL CHOICE
 DEATH = "deaths"
-CONFIRMED_CASE = "deaths"
-RECOVERD = "deaths"
+CONFIRMED_CASE = "confirmed case"
+RECOVERD = "recoverd"
 
 #id layout
 ID_DF_DEATH = "id_data-death"
