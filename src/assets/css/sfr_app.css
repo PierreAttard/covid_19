@@ -1,0 +1,16 @@
+/* En-tête */
+header h1 {
+    text-align: center;
+}
+/* Layout */
+.container {
+    width: 100%;
+    padding: 0px;
+}
+
+body {
+    background-color: #f4f4f4;
+}
+.navbar {
+    margin-bottom: 0;
+}
