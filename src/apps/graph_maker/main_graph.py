@@ -20,6 +20,8 @@ def make_graphe(df, country, data_type):
     dates = df.loc[:, ct.DATES]
     values = df.loc[:, ct.VAL]
 
+    title="cumul {} number for {}".format(data_type, country)
+
     fig = go.Figure()
     g1 = go.Scatter(
         x=dates,
@@ -28,5 +30,10 @@ def make_graphe(df, country, data_type):
         name="cumul {} number for {}".format(data_type, country)
     )
     fig.add_trace(g1)
+    fig.update_layout(
+        title_text=title,
+        xaxis=dict(title_text=ct.DATES),
+        yaxis=dict(title_text=data_type)
+    )
 
     return dcc.Graph(figure=fig)
