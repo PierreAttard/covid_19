@@ -38,3 +38,21 @@ def print_cases(country, data_type, data_ccase, data_death, data_rec):
 
     df = pd.read_json(data, orient="split")
     return main_graph.make_graphe(df, country, data_type)
+
+@app.callback(
+    Output("main-graphe-comparison", "children"),
+    [Input("choice-comparison-country", "value"),
+     Input("data-type-radio-comparison", "value")],
+    [State(ct.ID_DF_CCASES, "children"),
+     State(ct.ID_DF_DEATH, "children"),
+     State(ct.ID_DF_RECOVERD, "children")]
+)
+def print_cases(country, data_type, data_ccase, data_death, data_rec):
+    data = data_ccase
+    if data_type is not None and data_type == ct.DEATH:
+        data = data_death
+    elif data_type is not None and data_type == ct.RECOVERD:
+        data = data_rec
+
+    df = pd.read_json(data, orient="split")
+    return main_graph.make_graphe(df, country, data_type)
