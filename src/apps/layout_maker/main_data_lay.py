@@ -24,7 +24,17 @@ def choice_data():
                 className="graphCadre"
             )
         ],
+        className="six columns"),
+        html.Div([
+           html.Div(
+               children=[
+                   html.Div(id="main-graphe")
+               ],
+               className="graphCadre"
+           )
+        ],
         className="six columns")
-    ])
+    ],
+    )
     return lay
 
