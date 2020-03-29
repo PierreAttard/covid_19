@@ -48,6 +48,24 @@ def get_data(url):
 
     return dfl
 
+def get_daily_data(df):
+
+    dfldiff = df.groupby([ct.COUNTRY, ct.DATES]).sum().loc[:,ct.VAL].diff(1).reset_index()
+    mask = dfldiff.loc[:, ct.VAL] < 0
+    dfldiff.loc[mask, ct.VAL] = 0
+    mask = dfldiff.loc[:, ct.VAL] < 0
+    dfldiff.loc[mask, ct.VAL] = 0
+    dfldiff.columns = [ct.COUNTRY, ct.DATES, ct.DAILY]
+    dftmp = df.groupby([ct.COUNTRY, ct.DATES]).sum().reset_index()
+    dftmp.columns = [ct.COUNTRY, ct.DATES, ct.LAT, ct.LONG, ct.CUMUL]
+    dffinal = dfldiff.merge(dftmp, on=[ct.COUNTRY, ct.DATES], how="inner")
+    dffinal[ct.DP_DQ] = dffinal.loc[:, ct.DAILY].div(dffinal.loc[:, ct.CUMUL])
+
+    return dffinal
+
+def get_complete_hist_data(choice):
+    return get_daily_data(get_data_url(choice))
+
 def make_options(data_death):
     options = [{"label": "France", "value": "France"}]
     if data_death is None:

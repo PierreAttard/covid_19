@@ -89,3 +89,35 @@ def comparaison_data():
     )
     return lay
 
+def proj_data():
+    lay = \
+    html.Div([
+        html.Div([
+            html.Div(
+                children=[
+                    make_dropdown(id="choice-prev-country",
+                                  options=[{"label": "France", "value" : "France"}],
+                                  default="France"),
+                    html.Div(style={"margin-top": "20px"}),
+                    radio_buttons(id="data-type-radio-prev"),
+                    html.Div(style={"margin-top": "20px"}),
+                    html.Div(id="formule-prev-cumul")
+                ],
+                className="graphCadre"
+            )
+        ],
+        className="six columns"),
+        html.Div([
+           html.Div(
+               children=[
+                   html.Div(id="prev-graphe")
+               ],
+               className="graphCadre"
+           )
+        ],
+        className="six columns"),
+
+        html.Div(id="prev-country", children="{}", style={'display': 'none'})
+    ],
+    )
+    return lay

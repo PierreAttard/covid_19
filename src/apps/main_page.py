@@ -4,6 +4,7 @@ from src.apps.graph_maker import main_graph
 from src.apps.data_managment import load_data
 from src.app import app
 import src.constantes as ct
+import src.models.previsision as proj
 from dash.dependencies import Input, Output, State
 
 layout = lyt.main_lyt()
@@ -16,6 +17,12 @@ def fill_options(data_death):
 
 @app.callback(
     Output("choice-comparison-country", "options"),
+    [Input(ct.ID_DF_CCASES, "children")])
+def fill_options(data_death):
+    return load_data.make_options(data_death)
+
+@app.callback(
+    Output("choice-prev-country", "options"),
     [Input(ct.ID_DF_CCASES, "children")])
 def fill_options(data_death):
     return load_data.make_options(data_death)
@@ -56,3 +63,32 @@ def print_cases(country, data_type, data_ccase, data_death, data_rec):
 
     df = pd.read_json(data, orient="split")
     return main_graph.make_graphe(df, country, data_type)
+
+@app.callback(
+    Output("prev-country", "children"),
+    [Input("choice-prev-country", "value"),
+     Input("data-type-radio-prev", "value")],
+    [State(ct.ID_DF_CCASES_COMPLETE, "children"),
+     State(ct.ID_DF_DEATH_COMPLETE, "children"),
+     State(ct.ID_DF_RECOVERD_COMPLETE, "children")]
+)
+def prev_cumul(country, data_type, data_ccase, data_death, data_rec):
+    data = data_ccase
+    if data_type is not None and data_type == ct.DEATH:
+        data = data_death
+    elif data_type is not None and data_type == ct.RECOVERD:
+        data = data_rec
+
+    df = pd.read_json(data, orient="split")
+    hubbert_country = proj.HubbertCountry(df, country)
+    prev_hubbert_country = proj.PrevHubbertCountry(hubbert_country, 50)
+    return prev_hubbert_country.get_prev().to_json(orient='split', date_format='iso')
+
+@app.callback(
+    Output("prev-graphe", "children"),
+    [Input("prev-country", "children")]
+)
+def prev_cumul(data):
+    df = pd.read_json(data, orient="split")
+    country = df.iloc[0, :].loc[ct.COUNTRY]
+    return main_graph.make_proj_graphe(df, country)
