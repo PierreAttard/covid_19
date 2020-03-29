@@ -101,7 +101,17 @@ def proj_data():
                     html.Div(style={"margin-top": "20px"}),
                     radio_buttons(id="data-type-radio-prev"),
                     html.Div(style={"margin-top": "20px"}),
-                    html.Div(id="formule-prev-cumul")
+                    html.Div([
+                        html.Div(children="Formule : ", style={"display":"inline-block"}),
+                        html.Div(id="formule-prev-cumul", style={"display":"inline-block"})
+                    ]),
+                    html.Div(style={"margin-top": "20px"}),
+                    html.Div([
+                        html.Div(children="confiance : ", style={"display": "inline-block"}),
+                        html.Div(id="confiance-prev-cumul", style={"display": "inline-block"})
+                    ])
+
+
                 ],
                 className="graphCadre"
             )

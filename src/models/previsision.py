@@ -34,9 +34,11 @@ class HubbertCountry:
         coefs = lm_log.coef_[0]
         k = intercept
         urr = -k / coefs
+        score = lm_log.score(X, y)
         print("Coef : {}, intercept : {}, k = {}, urr : {}".format(coefs, intercept, k, urr))
         self._K = urr
         self._r = k
+        self._score = score
 
     def _set_t0(self):
         ix = (self._df.loc[:, ct.CUMUL] - sigmoid(K=self._K, r=self._r, t=0, t0=0)).abs().idxmin()
@@ -64,6 +66,7 @@ class PrevHubbertCountry:
         self._K = self._hc._K
         self._r = self._hc._r
         self._t0 = self._hc._t0
+        self._score = self._hc._score
         self._nb_days = nb_days
         self._make_prevision()
 
@@ -78,6 +81,9 @@ class PrevHubbertCountry:
         df_proj[ct.LAT] = df_hist.loc[:, ct.LAT].min()
         df_proj[ct.LONG] = df_hist.loc[:, ct.LONG].min()
         df_hist_proj = pd.concat([df_hist, df_proj])
+        df_hist_proj[ct.SCORE] = self._score
+        df_hist_proj[ct.K] = self._K
+        df_hist_proj[ct.r] = self._r
         self._df_prev = df_hist_proj
 
     def get_prev(self):

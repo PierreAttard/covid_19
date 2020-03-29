@@ -1,6 +1,6 @@
 import pandas as pd
 from src.apps.layout_maker import main_layout as lyt
-from src.apps.graph_maker import main_graph
+from src.apps.graph_maker import main_graph, formule_maker
 from src.apps.data_managment import load_data
 from src.app import app
 import src.constantes as ct
@@ -85,10 +85,15 @@ def prev_cumul(country, data_type, data_ccase, data_death, data_rec):
     return prev_hubbert_country.get_prev().to_json(orient='split', date_format='iso')
 
 @app.callback(
-    Output("prev-graphe", "children"),
+    [Output("prev-graphe", "children"),
+     Output("formule-prev-cumul", "children"),
+     Output("confiance-prev-cumul", "children")],
     [Input("prev-country", "children")]
 )
 def prev_cumul(data):
     df = pd.read_json(data, orient="split")
     country = df.iloc[0, :].loc[ct.COUNTRY]
-    return main_graph.make_proj_graphe(df, country)
+    score = df.iloc[0, :].loc[ct.SCORE]
+    score = "{:.2f}".format(score)
+
+    return main_graph.make_proj_graphe(df, country), formule_maker.print_hubbert_formula(df), score

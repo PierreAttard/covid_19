@@ -15,6 +15,9 @@ DP_DQ = "dPSurDQ"
 
 PREV = "Prev"
 N = "n"
+SCORE = "score"
+K = "K"
+r = "r"
 
 # URL CHOICE
 DEATH = "deaths"
