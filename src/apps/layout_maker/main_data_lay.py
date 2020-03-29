@@ -89,6 +89,28 @@ def comparaison_data():
     )
     return lay
 
+
+def silder_score(score=0):
+    lay = \
+    dcc.Slider(
+        id="score-prev",
+        min=0,
+        max=1.01,
+        step=0.01,
+        value=score,
+        marks={
+            0: {'label': "0"},
+            0.25: {'label': "0.25"},
+            0.50: {'label': "0.5"},
+            0.75: {'label': "0.75"},
+            1: {'label': "1"}
+        },
+        disabled=True,
+        tooltip={"always_visible": True}
+    )
+    return lay
+
+
 def proj_data():
     lay = \
     html.Div([
@@ -108,10 +130,9 @@ def proj_data():
                     html.Div(style={"margin-top": "20px"}),
                     html.Div([
                         html.Div(children="confiance : ", style={"display": "inline-block"}),
-                        html.Div(id="confiance-prev-cumul", style={"display": "inline-block"})
+                        html.Div(id="confiance-prev-cumul", style={"display": "inline-block"}),
+                        html.Div(children=silder_score(), style={"display": "inline-block", "width":"80%"})
                     ])
-
-
                 ],
                 className="graphCadre"
             )

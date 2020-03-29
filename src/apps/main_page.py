@@ -87,7 +87,8 @@ def prev_cumul(country, data_type, data_ccase, data_death, data_rec):
 @app.callback(
     [Output("prev-graphe", "children"),
      Output("formule-prev-cumul", "children"),
-     Output("confiance-prev-cumul", "children")],
+     Output("confiance-prev-cumul", "children"),
+     Output("score-prev", "value")],
     [Input("prev-country", "children")]
 )
 def prev_cumul(data):
@@ -96,4 +97,7 @@ def prev_cumul(data):
     score = df.iloc[0, :].loc[ct.SCORE]
     score = "{:.2f}".format(score)
 
-    return main_graph.make_proj_graphe(df, country), formule_maker.print_hubbert_formula(df), score
+    return main_graph.make_proj_graphe(df, country), \
+           formule_maker.print_hubbert_formula(df), \
+           score, \
+           float(score)
