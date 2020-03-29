@@ -1,10 +1,10 @@
 import pandas as pd
-from apps.layout_maker import main_layout as lyt
-from apps.graph_maker import main_graph, formule_maker
-from apps.data_managment import load_data
-from app import app
-import constantes as ct
-import models.previsision as proj
+from src.apps.layout_maker import main_layout as lyt
+from src.apps.graph_maker import main_graph, formule_maker
+from src.apps.data_managment import load_data
+from src.app import app
+import src.constantes as ct
+import src.models.previsision as proj
 from dash.dependencies import Input, Output, State
 
 layout = lyt.main_lyt()

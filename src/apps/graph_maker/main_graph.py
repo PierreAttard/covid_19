@@ -1,4 +1,4 @@
-import constantes as ct
+import src.constantes as ct
 import plotly.graph_objects as go
 import dash_core_components as dcc
 

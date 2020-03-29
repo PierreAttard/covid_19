@@ -1,8 +1,8 @@
 import dash_core_components as dcc
 import dash_html_components as html
-import apps.layout_maker.main_data_lay as lyt_grp
-import constantes as ct
-from apps.data_managment import load_data
+import src.apps.layout_maker.main_data_lay as lyt_grp
+import src.constantes as ct
+from src.apps.data_managment import load_data
 
 tabs_styles = {
     'height': '44px'
