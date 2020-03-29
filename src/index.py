@@ -2,8 +2,8 @@ import dash_core_components as dcc
 import dash_html_components as html
 from dash.dependencies import Input, Output
 
-from src.app import app
-from src.apps import main_page
+from app import app
+from apps import main_page
 
 app.layout = html.Div([
     dcc.Location(id='url', refresh=False),

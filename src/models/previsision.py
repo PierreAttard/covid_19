@@ -1,6 +1,6 @@
 import pandas as pd
 import numpy as np
-import src.constantes as ct
+import constantes as ct
 from sklearn.linear_model import LinearRegression
 
 def sigmoid(K, r, t, t0):

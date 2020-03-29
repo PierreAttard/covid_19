@@ -1,6 +1,6 @@
 import dash_core_components as dcc
 import dash_html_components as html
-import src.constantes as ct
+import constantes as ct
 
 def make_dropdown(id, options, default="France", multi=False):
     lay = \

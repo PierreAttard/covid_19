@@ -3,7 +3,7 @@ import numpy as np
 import datetime
 import requests
 import io
-import src.constantes as ct
+import constantes as ct
 
 
 
